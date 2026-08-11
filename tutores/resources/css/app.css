@@ -1,0 +1,237 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../views/**/*.blade.php';
+
+/* Paleta institucional UNICAES (ver CLAUDE.md §8) */
+@theme {
+    --color-unicaes-green: #3aaa35;
+    --color-unicaes-green-dark: #2e8b2c;
+    --color-unicaes-green-light: #8cc63f;
+    --color-unicaes-blue: #0258fc;
+    --color-unicaes-maroon: #6b1f2a;
+    --color-unicaes-gold: #c9a227;
+    --color-unicaes-ink: #1f2933;
+    --color-unicaes-slate: #52606d;
+    --color-unicaes-mist: #f5f7fa;
+    --color-unicaes-line: #e4e7eb;
+
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+    /* Curvas de easing. Salida asimétrica: arranca rápido y frena largo, que es
+       lo que hace que el movimiento se sienta natural y no mecánico. */
+    --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-quick: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+/* Transición entre documentos: al navegar, el navegador funde una página con la
+   siguiente en lugar del parpadeo en blanco habitual de una app multipágina. */
+@view-transition {
+    navigation: auto;
+}
+
+@layer base {
+    html {
+        @apply antialiased;
+        font-optical-sizing: auto;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd2d9;
+        border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #9aa5b4;
+    }
+
+    body {
+        @apply bg-unicaes-mist text-unicaes-ink;
+    }
+
+    /* Estados de foco accesibles y consistentes en todo el sistema */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible {
+        @apply outline-2 outline-offset-2 outline-unicaes-blue rounded-sm;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl bg-unicaes-green px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-unicaes-green-dark active:scale-[0.98];
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl border border-unicaes-line bg-white px-5 py-2.5 text-sm font-semibold text-unicaes-ink shadow-sm transition-colors duration-150 hover:bg-unicaes-mist active:scale-[0.98];
+    }
+
+    /* Confirmación de "Copiado": se define aquí y no como clases sueltas en el
+       JS, para que Tailwind siempre las genere aunque no escanee ese archivo. */
+    .btn-secondary.is-copied {
+        @apply border-unicaes-green/40 text-unicaes-green-dark;
+    }
+
+    .btn-danger {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-700 shadow-sm transition-colors duration-150 hover:bg-red-50 active:scale-[0.98];
+    }
+
+    .card {
+        @apply rounded-2xl border border-unicaes-line bg-white shadow-sm;
+    }
+
+    /* Píldora de estado/categoría/rol (Figma: 11px semibold, radio completo) */
+    .badge {
+        @apply inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-[11px] leading-[18px] font-semibold;
+    }
+
+    .field-label {
+        @apply mb-1.5 block text-sm font-medium text-unicaes-ink;
+    }
+
+    .field-input {
+        @apply block w-full rounded-xl border border-unicaes-line bg-white px-3.5 py-2.5 text-sm text-unicaes-ink placeholder-unicaes-slate/60 shadow-sm transition-colors focus:border-unicaes-green focus:ring-2 focus:ring-unicaes-green/20;
+    }
+
+    .table-th {
+        @apply px-4 py-3 text-left text-xs font-semibold tracking-wide text-unicaes-slate uppercase;
+    }
+
+    .table-td {
+        @apply px-4 py-3 text-sm;
+    }
+
+    /* Accordion del menú móvil. El truco de grid 0fr→1fr permite animar la
+       altura sin conocerla de antemano, algo que height:auto no admite. */
+    .menu-collapse {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.22s var(--ease-out-soft);
+    }
+
+    .menu-collapse > * {
+        overflow: hidden;
+        min-height: 0;
+        /* Fuera del orden de tabulación mientras está plegado; al abrir aparece
+           de inmediato y al cerrar espera a que termine el pliegue. */
+        visibility: hidden;
+        transition: visibility 0s linear 0.22s;
+    }
+
+    .menu-collapse[data-open] {
+        grid-template-rows: 1fr;
+    }
+
+    .menu-collapse[data-open] > * {
+        visibility: visible;
+        transition-delay: 0s;
+    }
+
+    /* Tarjeta que reacciona al puntero: se eleva con sombra suave.
+       Solo transform y opacity/box-shadow para que lo componga la GPU. */
+    .card-interactive {
+        @apply transition-[transform,box-shadow] duration-150 ease-[var(--ease-out-soft)]
+               hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(0,0,0,0.07)]
+               active:translate-y-0 active:duration-75;
+    }
+}
+
+/* ── Entradas ──────────────────────────────────────────────────────────────
+   Todas parten del estado final visible: solo declaran el fotograma inicial,
+   así que si la animación no llega a ejecutarse el contenido igual se ve. */
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes scale-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.98);
+    }
+}
+
+@keyframes slide-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+/* Pop in: entra con un ligero rebase antes de asentarse. */
+@keyframes pop-in {
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.96);
+    }
+}
+
+@layer utilities {
+    .animate-fade-in {
+        animation: fade-in 0.24s var(--ease-out-soft) both;
+    }
+
+    .animate-scale-in {
+        animation: scale-in 0.26s var(--ease-out-soft) both;
+    }
+
+    .animate-slide-in-up {
+        animation: slide-in-up 0.28s var(--ease-out-soft) both;
+    }
+
+    .animate-pop-in {
+        animation: pop-in 0.22s var(--ease-spring) both;
+    }
+
+    /* Stagger: cada elemento arranca un poco después que el anterior, creando
+       una cascada. El índice llega inline como --i desde la plantilla.
+       El retraso se mantiene corto a propósito: la cascada debe insinuarse, no
+       hacerse esperar. Con el tope de --i en 5, lo último entra a los 120 ms. */
+    .stagger-item {
+        animation: scale-in 0.26s var(--ease-out-soft) both;
+        animation-delay: calc(var(--i, 0) * 24ms);
+    }
+}
+
+/* Transición de página: un fundido corto. Se suma al tiempo de respuesta del
+   servidor, así que cada milisegundo aquí se nota como demora al navegar. */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation-duration: 0.12s;
+    animation-timing-function: var(--ease-out-quick);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        /* Sin esto, el relleno hacia atrás del stagger mantendría cada tarjeta
+           en su estado inicial (invisible) durante toda su espera. */
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+}
