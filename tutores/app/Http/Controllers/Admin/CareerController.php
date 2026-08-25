@@ -8,7 +8,6 @@ use App\Models\Career;
 use App\Models\Faculty;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class CareerController extends Controller
@@ -40,7 +39,7 @@ class CareerController extends Controller
     public function store(CareerRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['slug'] = $this->uniqueSlug($data['faculty_id'], $data['name']);
+        $data['slug'] = Career::uniqueSlug($data['name'], scope: ['faculty_id' => $data['faculty_id']]);
         $career = Career::create($data);
 
         return redirect()->route('admin.carreras.show', $career)->with('status', 'Carrera creada. Ahora agrega sus ciclos.');
@@ -68,7 +67,7 @@ class CareerController extends Controller
         $data = $request->validated();
         $data['is_active'] = $request->boolean('is_active');
         if ($data['name'] !== $career->name || (int) $data['faculty_id'] !== (int) $career->faculty_id) {
-            $data['slug'] = $this->uniqueSlug($data['faculty_id'], $data['name'], $career->id);
+            $data['slug'] = Career::uniqueSlug($data['name'], $career->id, ['faculty_id' => $data['faculty_id']]);
         }
         $career->update($data);
 
@@ -84,19 +83,5 @@ class CareerController extends Controller
         $career->delete();
 
         return redirect()->route('admin.carreras.index')->with('status', 'Carrera eliminada.');
-    }
-
-    private function uniqueSlug(int $facultyId, string $name, ?int $ignoreId = null): string
-    {
-        $base = Str::slug($name);
-        $slug = $base;
-        $i = 2;
-        while (Career::where('faculty_id', $facultyId)->where('slug', $slug)
-            ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))->exists()) {
-            $slug = "{$base}-{$i}";
-            $i++;
-        }
-
-        return $slug;
     }
 }

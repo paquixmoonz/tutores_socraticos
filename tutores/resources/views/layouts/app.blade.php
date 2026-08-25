@@ -32,6 +32,10 @@
                    class="rounded-lg px-3.5 py-1.5 text-[13px] transition-colors {{ request()->routeIs('catalog.*') ? 'bg-unicaes-green/10 font-bold text-unicaes-green-dark' : 'font-medium text-unicaes-slate hover:bg-white hover:text-unicaes-ink' }}">
                     Catálogo
                 </a>
+                <a href="{{ route('guide') }}"
+                   class="rounded-lg px-3.5 py-1.5 text-[13px] transition-colors {{ request()->routeIs('guide') ? 'bg-unicaes-green/10 font-bold text-unicaes-green-dark' : 'font-medium text-unicaes-slate hover:bg-white hover:text-unicaes-ink' }}">
+                    Cómo usarlo
+                </a>
                 @if(auth()->user()->isTeacher() || auth()->user()->isAdmin())
                     <a href="{{ route('teacher.subjects.index') }}"
                        class="rounded-lg px-3.5 py-1.5 text-[13px] transition-colors {{ request()->routeIs('teacher.*') ? 'bg-unicaes-green/10 font-bold text-unicaes-green-dark' : 'font-medium text-unicaes-slate hover:bg-white hover:text-unicaes-ink' }}">
@@ -81,6 +85,7 @@
             <div>
                 <div class="border-t border-unicaes-line bg-unicaes-mist/95 px-4 pt-3 pb-5 space-y-0.5">
                     <a href="{{ route('catalog.index') }}" class="block rounded-[10px] px-3.5 py-2.5 text-sm {{ request()->routeIs('catalog.*') ? 'bg-unicaes-green/10 font-bold text-unicaes-green-dark' : 'font-medium text-unicaes-slate' }}">Catálogo</a>
+                    <a href="{{ route('guide') }}" class="block rounded-[10px] px-3.5 py-2.5 text-sm {{ request()->routeIs('guide') ? 'bg-unicaes-green/10 font-bold text-unicaes-green-dark' : 'font-medium text-unicaes-slate' }}">Cómo usarlo</a>
                     @if(auth()->user()->isTeacher() || auth()->user()->isAdmin())
                         <a href="{{ route('teacher.subjects.index') }}" class="block rounded-[10px] px-3.5 py-2.5 text-sm {{ request()->routeIs('teacher.*') ? 'bg-unicaes-green/10 font-bold text-unicaes-green-dark' : 'font-medium text-unicaes-slate' }}">Mis materias</a>
                     @endif

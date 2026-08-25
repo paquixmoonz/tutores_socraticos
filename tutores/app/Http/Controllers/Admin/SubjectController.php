@@ -11,7 +11,6 @@ use App\Models\User;
 use App\Services\DocumentService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class SubjectController extends Controller
@@ -49,7 +48,7 @@ class SubjectController extends Controller
     public function store(SubjectRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['slug'] = $this->uniqueSlug($data['name']);
+        $data['slug'] = Subject::uniqueSlug($data['name']);
         $subject = Subject::create($data);
 
         return redirect()->route('admin.materias.show', $subject)
@@ -84,7 +83,7 @@ class SubjectController extends Controller
         $data = $request->validated();
         $data['is_active'] = $request->boolean('is_active');
         if ($data['name'] !== $subject->name) {
-            $data['slug'] = $this->uniqueSlug($data['name'], $subject->id);
+            $data['slug'] = Subject::uniqueSlug($data['name'], $subject->id);
         }
         $subject->update($data);
 
@@ -108,18 +107,5 @@ class SubjectController extends Controller
     private function teachers()
     {
         return User::role(['docente', 'admin'])->orderBy('name')->get();
-    }
-
-    private function uniqueSlug(string $name, ?int $ignoreId = null): string
-    {
-        $base = Str::slug($name);
-        $slug = $base;
-        $i = 2;
-        while (Subject::where('slug', $slug)->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))->exists()) {
-            $slug = "{$base}-{$i}";
-            $i++;
-        }
-
-        return $slug;
     }
 }

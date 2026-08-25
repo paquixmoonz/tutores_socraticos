@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\GeneratesUniqueSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class Subject extends Model implements AuditableContract
 {
-    use Auditable, HasFactory;
+    use Auditable, GeneratesUniqueSlug, HasFactory;
 
     protected $fillable = [
         'name', 'slug', 'code', 'subject_category_id', 'teacher_id', 'description', 'is_active',

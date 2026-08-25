@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FacultyRequest;
 use App\Models\Faculty;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class FacultyController extends Controller
@@ -26,7 +25,7 @@ class FacultyController extends Controller
     public function store(FacultyRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['slug'] = $this->uniqueSlug($data['name']);
+        $data['slug'] = Faculty::uniqueSlug($data['name']);
         Faculty::create($data);
 
         return redirect()->route('admin.facultades.index')->with('status', 'Facultad creada.');
@@ -42,7 +41,7 @@ class FacultyController extends Controller
         $data = $request->validated();
         $data['is_active'] = $request->boolean('is_active');
         if ($data['name'] !== $faculty->name) {
-            $data['slug'] = $this->uniqueSlug($data['name'], $faculty->id);
+            $data['slug'] = Faculty::uniqueSlug($data['name'], $faculty->id);
         }
         $faculty->update($data);
 
@@ -58,18 +57,5 @@ class FacultyController extends Controller
         $faculty->delete();
 
         return redirect()->route('admin.facultades.index')->with('status', 'Facultad eliminada.');
-    }
-
-    private function uniqueSlug(string $name, ?int $ignoreId = null): string
-    {
-        $base = Str::slug($name);
-        $slug = $base;
-        $i = 2;
-        while (Faculty::where('slug', $slug)->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))->exists()) {
-            $slug = "{$base}-{$i}";
-            $i++;
-        }
-
-        return $slug;
     }
 }

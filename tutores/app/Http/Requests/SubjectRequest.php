@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
 
 class SubjectRequest extends FormRequest
@@ -16,8 +17,16 @@ class SubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:150'],
-            'code' => ['nullable', 'string', 'max:20'],
+            // El catálogo comparte materias entre carreras: un mismo nombre
+            // siempre debe apuntar a una única materia y, por tanto, a un único tutor.
+            'name' => [
+                'required', 'string', 'max:150',
+                Rule::unique('subjects')->ignore($this->route('subject')),
+            ],
+            'code' => [
+                'nullable', 'string', 'max:20',
+                Rule::unique('subjects')->ignore($this->route('subject')),
+            ],
             'subject_category_id' => ['required', 'exists:subject_categories,id'],
             'teacher_id' => ['nullable', 'exists:users,id'],
             'description' => ['nullable', 'string', 'max:5000'],
@@ -34,6 +43,14 @@ class SubjectRequest extends FormRequest
                     $validator->errors()->add('teacher_id', 'El usuario seleccionado no tiene rol de docente.');
                 }
             },
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.unique' => 'Ya existe una materia con ese nombre. Asígnala a otra carrera en lugar de duplicarla.',
+            'code.unique' => 'Ese código ya está en uso por otra materia.',
         ];
     }
 

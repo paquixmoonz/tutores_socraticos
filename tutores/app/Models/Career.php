@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\GeneratesUniqueSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class Career extends Model implements AuditableContract
 {
-    use Auditable, HasFactory;
+    use Auditable, GeneratesUniqueSlug, HasFactory;
 
     protected $fillable = ['faculty_id', 'name', 'slug', 'plan_year', 'is_active'];
 

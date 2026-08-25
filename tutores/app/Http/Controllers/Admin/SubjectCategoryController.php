@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SubjectCategoryRequest;
 use App\Models\SubjectCategory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class SubjectCategoryController extends Controller
@@ -26,7 +25,7 @@ class SubjectCategoryController extends Controller
     public function store(SubjectCategoryRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['slug'] = Str::slug($data['name']);
+        $data['slug'] = SubjectCategory::uniqueSlug($data['name']);
         SubjectCategory::create($data);
 
         return redirect()->route('admin.categorias.index')->with('status', 'Categoría creada.');
@@ -40,7 +39,7 @@ class SubjectCategoryController extends Controller
     public function update(SubjectCategoryRequest $request, SubjectCategory $category): RedirectResponse
     {
         $data = $request->validated();
-        $data['slug'] = Str::slug($data['name']);
+        $data['slug'] = SubjectCategory::uniqueSlug($data['name'], $category->id);
         $category->update($data);
 
         return redirect()->route('admin.categorias.index')->with('status', 'Categoría actualizada.');

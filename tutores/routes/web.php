@@ -38,6 +38,7 @@ if (app()->environment('local')) {
 */
 Route::middleware('auth')->group(function () {
     Route::get('/', fn () => redirect()->route('catalog.index'));
+    Route::view('/guia', 'guide')->name('guide');
     Route::get('/catalogo', [CatalogController::class, 'index'])->name('catalog.index');
     Route::get('/catalogo/{faculty}', [CatalogController::class, 'faculty'])->name('catalog.faculty');
     Route::get('/catalogo/{faculty}/{career}', [CatalogController::class, 'career'])

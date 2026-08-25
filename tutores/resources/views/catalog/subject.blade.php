@@ -55,20 +55,39 @@
         @endif
 
         <div class="card px-[22px] py-5">
-            <h2 class="mb-[18px] text-[13px] font-bold tracking-wider uppercase">Cómo usar tu tutor socrático</h2>
+            <h2 class="mb-1.5 text-[13px] font-bold tracking-wider uppercase">Cómo usar tu tutor socrático</h2>
+            <p class="mb-[18px] text-sm leading-relaxed text-unicaes-slate">
+                El tutor de {{ $subject->name }} <strong class="font-semibold text-unicaes-ink">no te dará la
+                respuesta de un ejercicio</strong>: te hará preguntas hasta que llegues tú. Sí responde directo
+                cuando le preguntes una definición, una fórmula o la notación de la materia.
+            </p>
+
             <ol class="space-y-4">
                 @foreach([
-                    'Descarga o copia el agente socrático desde el panel lateral.',
-                    'Abre tu asistente de IA favorito: ChatGPT, Claude o Gemini.',
-                    'Pega el agente como tu primer mensaje en la conversación.',
-                    'Empieza a hacer preguntas sobre la materia. El tutor te guiará.',
-                ] as $i => $step)
+                    ['Copia o descarga el agente', 'Está en el panel de la derecha. «Copiar al portapapeles» es lo más rápido.'],
+                    ['Abre tu IA y empieza un chat nuevo', 'ChatGPT, Claude, Gemini o la que uses. La cuenta gratuita basta.'],
+                    ['Pega el agente como primer mensaje', 'Todo el texto, completo. El tutor se presentará y te preguntará qué tema quieres trabajar.'],
+                    ['Muéstrale lo que ya intentaste', 'Aunque esté mal. Es lo que le permite detectar dónde está el vacío real y guiarte desde ahí.'],
+                ] as $i => [$title, $body])
                     <li class="flex items-start gap-3.5">
                         <span class="mt-px flex size-6 shrink-0 items-center justify-center rounded-full bg-unicaes-green text-[11px] font-extrabold text-white">{{ $i + 1 }}</span>
-                        <p class="text-sm leading-relaxed text-unicaes-slate">{{ $step }}</p>
+                        <div>
+                            <p class="text-sm font-semibold leading-relaxed">{{ $title }}</p>
+                            <p class="mt-0.5 text-[13px] leading-relaxed text-unicaes-slate">{{ $body }}</p>
+                        </div>
                     </li>
                 @endforeach
             </ol>
+
+            <div class="mt-5 border-t border-unicaes-line pt-5">
+                <h3 class="mb-3 text-[13px] font-bold tracking-wider uppercase">Dónde pegarlo</h3>
+                <x-tutor-install :subject="$subject" />
+            </div>
+
+            <a href="{{ route('guide') }}" class="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-unicaes-blue hover:underline">
+                Ver la guía completa para estudiantes
+                <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </a>
         </div>
     </div>
 
