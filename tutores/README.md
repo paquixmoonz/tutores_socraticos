@@ -8,9 +8,12 @@ ejecuta los agentes: los distribuye con control de acceso, roles y auditoría.
 **Stack:** Laravel 13 (monolito) · Blade + Tailwind CSS 4 · SQLite/MySQL ·
 Google OAuth (Socialite) · spatie/laravel-permission · owen-it/laravel-auditing.
 
+La [arquitectura de la plataforma](../docs/arquitectura_plataforma.md) documenta los
+componentes, modelo del catálogo, permisos, flujos y decisiones pendientes de revisión.
+
 ## Requisitos
 
-- PHP 8.3+ con extensiones: `curl`, `pdo_sqlite` (o `pdo_mysql`), `mbstring`, `openssl`, `fileinfo`, `zip`
+- PHP 8.3+ con extensiones: `curl`, `pdo_sqlite` (o `pdo_mysql`), `mbstring`, `openssl`, `fileinfo`, `zip`, `intl`
 - Composer 2
 - Node.js 18+
 
@@ -33,6 +36,22 @@ php artisan serve           # http://localhost:8000
 En entorno **local** la pantalla de login muestra un panel de **“Acceso de desarrollo”**
 para entrar como admin/docente/estudiante demo sin credenciales de Google.
 Ese panel y sus rutas **no existen** fuera de `APP_ENV=local`.
+
+### Iniciar en este equipo Windows
+
+Con el entorno local ya preparado, desde la carpeta `tutores` ejecuta:
+
+```powershell
+.\iniciar-local.cmd
+```
+
+Abre **http://127.0.0.1:8000/login** y despliega **Acceso de desarrollo (solo local)**.
+Puedes elegir Administrador UNICAES, Docente de Demostración o Estudiante de Demostración.
+Este acceso permite revisar las pantallas sin configurar Google. Los datos y documentos
+incluidos son demostraciones. Para detener el servidor, presiona Ctrl+C en la terminal.
+
+El lanzador utiliza PHP en `C:\tools\php83` cuando está disponible y carga las extensiones
+configuradas para este equipo en el almacenamiento local, sin modificar el PHP global.
 
 ## Configurar Google OAuth (login institucional real)
 
@@ -64,7 +83,7 @@ GOOGLE_REDIRECT_URI="${APP_URL}/auth/google/callback"
 ## Tests
 
 ```bash
-php artisan test    # 44 tests: auth, roles, documentos, CRUDs, catálogo
+php artisan test    # auth, roles, documentos, CRUDs, catálogo
 ```
 
 ## Producción — lista de verificación

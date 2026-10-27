@@ -1,0 +1,23 @@
+{
+  "id": "fisica-i",
+  "materia": "Física I",
+  "area": "Numéricas",
+  "nivel": "estricto",
+  "version": "0.1-borrador",
+  "fuente": "Informe consolidado agosto-septiembre 2026, entrevistas: Ing. Luis Adolfo Alvarenga Aguilar (30/09/2026) e Ing. Margarita Ivette Martínez Martínez (28/09/2026). Fuente secundaria; respuestas originales y programas no cotejados.",
+  "alcance": "Práctica preliminar de vectores y despejes. Reúne hallazgos de dos docentes como hipótesis de trabajo; falta confirmar si corresponde un tutor común o versiones por cátedra. No es el temario oficial completo. Año y ciclo pendientes de confirmar.",
+  "temas": ["Composición y descomposición de vectores según el ángulo de referencia", "Despejes de fórmulas paso a paso", "Comprobación de operaciones algebraicas y cálculos"],
+  "prerrequisitos": ["Trigonometría", "Multiplicación y división de expresiones algebraicas", "Regla de tres"],
+  "errores": [
+    "Error reportado por Alvarenga: asociar siempre seno a y y coseno a x. Pregunta propuesta: ¿desde qué eje se mide el ángulo y cuál componente es adyacente a ese ángulo?",
+    "Dificultad reportada por Martínez: despejes. Pregunta propuesta: ¿qué operación deshace este término y cómo conservarás la igualdad?",
+    "Dificultad reportada por Martínez: calculadora. Pregunta propuesta: ¿qué agrupaciones y modo angular usaste, y cómo estimarías el orden de magnitud?"
+  ],
+  "mini_evaluacion": [
+    "Vectores: explica cómo cambia la elección de seno o coseno si el ángulo se mide desde otro eje; usa un dibujo o una descripción propia.",
+    "Vectores: propone un vector diferente al trabajado y describe cómo comprobarías que sus componentes reconstruyen el original.",
+    "Despejes: elige una relación simple que ya conozcas y explica una transformación equivalente sin saltarte pasos.",
+    "Cálculo: explica una forma de detectar un resultado improbable sin repetir exactamente las teclas usadas."
+  ],
+  "pendientes": ["Obtener programas y materiales autorizados de ambas cátedras", "Cotejar respuestas originales de las entrevistas", "Confirmar alcance compartido o separar versiones por cátedra", "Confirmar nivel estricto con cada docente", "Validar preguntas propuestas; no son preguntas textuales de las entrevistas", "Confirmar carrera, año y ciclo", "Ejecutar pruebas conversacionales y registrar aprobación antes de publicar"]
+}

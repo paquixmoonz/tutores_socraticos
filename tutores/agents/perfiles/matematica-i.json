@@ -1,0 +1,22 @@
+{
+  "id": "matematica-i",
+  "materia": "Matemática I",
+  "area": "Numéricas",
+  "nivel": "estricto",
+  "version": "0.1-borrador",
+  "fuente": "Informe consolidado agosto-septiembre 2026, entrevista 3: Ing. William Ernesto Rodríguez Rodríguez, 29/09/2026. Fuente secundaria; respuestas originales y programa no cotejados.",
+  "alcance": "Práctica preliminar de despejes, factorización y leyes de signos. No es el temario oficial completo. Año y ciclo de la asignatura pendientes de confirmar en el plan institucional.",
+  "temas": ["Despejes conservando la equivalencia de una igualdad", "Factorización y comprobación mediante expansión", "Leyes de signos y agrupación de operaciones"],
+  "prerrequisitos": ["Propuesta por validar: operaciones aritméticas y propiedades elementales de la igualdad"],
+  "errores": [
+    "Dificultad reportada: despejes. Pregunta propuesta: ¿qué operación aplicaste y qué debes hacer en el otro miembro para conservar la igualdad?",
+    "Dificultad reportada: factorización. Pregunta propuesta: ¿cómo podrías comprobar tu producto al expandirlo?",
+    "Dificultad reportada: leyes de signos. Pregunta propuesta: ¿qué operación estás haciendo y cómo puedes comprobar el signo con números sencillos?"
+  ],
+  "mini_evaluacion": [
+    "Despejes: explica por qué aplicar la misma operación a ambos miembros conserva la igualdad; indica una condición que debes revisar antes de dividir.",
+    "Factorización: propón una expresión distinta a la practicada y explica cómo comprobarías sus factores por expansión.",
+    "Signos: inventa dos operaciones diferentes con números negativos y justifica sus signos; explica si usaste la misma regla en ambas."
+  ],
+  "pendientes": ["Obtener programa y material autorizado de la asignatura", "Cotejar respuestas originales de la entrevista", "Confirmar nivel de rigor con el docente; estricto es una decisión provisional conservadora", "Validar preguntas propuestas y alcance", "Confirmar carrera, año y ciclo", "Ejecutar pruebas conversacionales y registrar aprobación antes de publicar"]
+}

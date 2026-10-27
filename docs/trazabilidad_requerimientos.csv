@@ -1,0 +1,15 @@
+ID;Origen;Requerimiento;Evidencia disponible;Criterio de aceptación;Estado al 26-10-2026;Pendiente
+RF-01;Diseño técnico y propuesta;Acceso Google institucional;GoogleAuthController y AuthTest;Cuenta institucional entra y externa es rechazada antes de crear usuario;Código y pruebas escritas sin ejecutar;Suite y prueba OAuth real
+RF-02;Diseño técnico;Tres roles y estudiante por defecto;GoogleAuthController y RoleAccessTest;Solo administrador cambia roles y nuevo usuario es estudiante;Código sin validación funcional;Ejecutar pruebas y revisión docente
+RF-03;Propuesta y diseño;Navegación facultad carrera ciclo materia;CatalogController y CatalogTest;Materia localizada desde carrera y búsqueda;Código sin validación funcional;Prueba de usuario y catálogo real
+RF-04;Propuesta y diseño;Descargar y copiar agente autorizado;DownloadController y DocumentTest;Solo usuario autorizado obtiene archivo privado activo;Código sin validación funcional;Ejecutar pruebas y verificar archivo real
+RF-05;Diseño técnico;Docente gestiona planes solo de materias asignadas;StudyPlanPolicy y DocumentTest;Acceso ajeno rechazado y versión anterior conservada;Código sin validación funcional;Ejecutar suite
+RF-06;Diseño técnico;Administrador gestiona agentes y catálogo;Rutas admin y AdminCrudTest;Estudiante y docente no pueden subir agentes;Código sin validación funcional;Ejecutar suite
+RF-07;Diseño técnico;Auditoría de gestión y descargas;DocumentService y modelos auditables;Se identifica actor evento documento y fecha;Código sin validación funcional;Comprobar eventos y permisos
+PED-01;Informe entrevista Rodríguez 29-09-2026;Orientación paso a paso sin respuesta directa;motor-base.md y perfil matematica-i.json;Primera intervención pide razonamiento y guía un paso;Borrador generado;Cotejar entrevista y casos conversacionales
+PED-02;Informe entrevista Alvarenga 30-09-2026;Considerar ángulo de referencia en vectores;perfil fisica-i.json;Tutor pregunta desde qué eje se mide el ángulo;Borrador generado;Cotejar entrevista y revisión por cátedra
+PED-03;Informe entrevista Martínez 28-09-2026;Evitar saltos en despejes y cálculos;perfil fisica-i.json;Ayuda identifica una transformación por turno;Borrador generado;Cotejar entrevista y pruebas
+PED-04;Informe entrevista Rodríguez 29-09-2026;Fórmulas legibles en la IA externa;motor-base.md;Estudiante puede leer la expresión en herramienta elegida;Regla escrita sin prueba externa;Registrar herramienta y presentación real
+PED-05;Metodología del creador;Niveles y mini-evaluaciones por materia;motor-base.md y perfiles;Nivel aplicado y transferencia comprobada al cierre;Compilador comprobado sin evaluación de IA;Validación pedagógica
+DOC-01;Cronograma 1.1.5 e informe septiembre;Trazabilidad y requisitos aprobados;Esta matriz y diseños disponibles;Cada requisito tiene fuente evidencia y decisión del asesor;Pendiente validación;Respuestas originales y aprobación
+ALC-01;Propuesta apartados 5.1 y 7.2;Resolver expectativa de reportes de progreso;5.1 indica catálogo externo y 7.2 menciona reportes;Asesor define qué se medirá y dónde sin prometer seguimiento automático;Ambigüedad pendiente;Acordar alcance con Rafael
